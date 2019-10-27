@@ -1,1 +1,71 @@
-<p>temperature-form works!</p>
+<div class="temperature-form-container">
+    <form>
+        <section class="new-temperature-detail-container">
+            <div class="input-row">
+                <div class="input-box">
+                    <label class="input-label">Profile Name</label>
+                    <input class="form-input" name="txt_temp_form_prof_name" type="text" [(ngModel)]="temperatureFormData.profileName" />
+                </div>
+                <div class="input-box">
+                    <label class="input-label">Test Type</label>
+                    <input class="form-input" name="txt_temp_form_test_type" type="text" [(ngModel)]="temperatureFormData.testTypeId" />
+                </div>
+            </div>
+            <div class="input-row">
+                <div class="input-box">
+                    <label class="input-label">Allowable Positive Deviation</label>
+                    <input class="form-input" name="txt_temp_form_pos_deviation" type="number" [(ngModel)]="temperatureFormData.positiveDeviation" />
+                </div>
+                <div class="input-box">
+                    <label class="input-label">Allowable Negative Deviation</label>
+                    <input class="form-input" name="txt_temp_form_neg_deviation" type="number" [(ngModel)]="temperatureFormData.negativeDeviation" />
+                </div>
+                <div class="input-box">
+                    <label class="input-label">Ramp Rate</label>
+                    <input class="form-input" name="txt_temp_form_ramp_rate" type="number" [(ngModel)]="temperatureFormData.rampRate" />
+                </div>
+            </div>
+            <div class="add-temperature-row">
+                <div class="add-temperature-panel">
+                    <button class="add-temperature-button" (click)="addTemperature()">Add Temperature</button>
+                    <div *ngIf="showTemperaturePanel" class="temperature-list">
+                        <ul>
+                            <li *ngFor="let item of temperatureDetailFormValues" (click)="selectFormType(item.id)">
+                                {{item.value}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="temperature-detail-section">
+            <div *ngFor="let item of formDisplayData; let i = index;">
+                <div *ngIf="item.preIncubation.formSelected" class="form-container">
+                    <app-pre-incubation-form 
+                        [form-data]="temperatureFormData.preIncubation[item.preIncubation.formCount-1]">
+                    </app-pre-incubation-form>
+                </div>
+                <div *ngIf="item.twoStepAmplification.formSelected" class="form-container">
+                    <app-step-amplification-form 
+                        [step-count]="2"
+                        [form-data]="temperatureFormData.twoStepAmplification[item.twoStepAmplification.formCount-1]">
+                    </app-step-amplification-form>
+                </div>
+                <div *ngIf="item.threeStepAmplification.formSelected" class="form-container">
+                    <app-step-amplification-form 
+                        [step-count]="3"
+                        [form-data]="temperatureFormData.threeStepAmplification[item.threeStepAmplification.formCount-1]">
+                    </app-step-amplification-form>
+                </div>
+                <div *ngIf="item.melt.formSelected" class="form-container">
+                    <app-melt-form
+                        [form-data]="temperatureFormData.melt[item.melt.formCount-1]">
+                    </app-melt-form>
+                </div>
+            </div>
+        </section>
+        <section *ngIf="formDisplayData.length" class="temperature-form-action">
+            <button class="save-temperature-button" (click)="getTemperatureFormData()">Save</button>
+        </section>
+    </form>
+</div>

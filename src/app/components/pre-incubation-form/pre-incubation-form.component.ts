@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import * as models from '../../_models'
 
 @Component({
   selector: 'app-pre-incubation-form',
@@ -6,6 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pre-incubation-form.component.scss']
 })
 export class PreIncubationFormComponent implements OnInit {
+
+  //********** Variables *********/
+
+  @Input('form-data') formData: models.PreIncubationData;
+
+  //**************************** */
 
   constructor() { }
 

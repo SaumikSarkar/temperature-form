@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import * as models from '../../_models'
 
 @Component({
   selector: 'app-melt-form',
@@ -6,6 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./melt-form.component.scss']
 })
 export class MeltFormComponent implements OnInit {
+
+  //********** Variables *********/
+
+  @Input('form-data') formData: models.MeltData;
+
+  //**************************** */
 
   constructor() { }
 

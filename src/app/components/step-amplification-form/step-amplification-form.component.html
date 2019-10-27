@@ -1,0 +1,47 @@
+<div class="temperature-detail-header-container">
+    <h2 class="temerature-detail-header">{{step}}-Step Amplification</h2>
+    <div>
+        <label>Multiple</label>
+        <input type="checkbox" (click)="showMultiple($event)" />
+    </div>
+</div>
+<div class="temperature-detail-inputs">
+    <div *ngFor="let wells of [].constructor(isShowMultipleValue); let i = index" class="well-container">
+        <h3 class="well-heading">Well {{i+1}}</h3>
+        <div *ngFor="let item of [].constructor(step); let j = index" class="input-row">
+            <div class="input-box">
+                <label class="input-label">Setpoint {{j+1}} (degree celcius)</label>
+                <input class="form-input" 
+                    type="number" 
+                    *ngIf="step == 2"
+                    [(ngModel)]="formData.wellsTwoStepAmplification[i]['setPoint'+ getNumber(j)]" />
+                <input class="form-input" 
+                    type="number" 
+                    *ngIf="step == 3"
+                    [(ngModel)]="formData.wellsThreeStepAmplification[i]['setPoint'+ getNumber(j)]" />
+            </div>
+            <div class="input-box">
+                <label class="input-label">Hold Time {{j+1}} (second)</label>
+                <input class="form-input" 
+                    type="number"
+                    *ngIf="step == 2"
+                    [(ngModel)]="formData.wellsTwoStepAmplification[i]['holdTime'+ getNumber(j)]" />
+                <input class="form-input" 
+                    type="number"
+                    *ngIf="step == 3"
+                    [(ngModel)]="formData.wellsThreeStepAmplification[i]['holdTime'+ getNumber(j)]" />
+            </div>
+        </div>
+    </div>
+    <div class="input-row">
+        <div class="input-box">
+            <label class="input-label">Number of Cycles</label>
+            <input class="form-input" type="number" [(ngModel)]="formData.numberOfCycle" />
+        </div>
+        <div class="input-box">
+            <label class="input-label">Image Acquisition</label>
+            <input type="radio" name="img-acq" value="true" (click)="imgAcqCheck(true)" /> Yes
+            <input type="radio" name="img-acq" value="false" (click)="imgAcqCheck(false)" /> No
+        </div>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+.temerature-detail-header {
+    font-size: 20px;
+    color: #3333b7;
+    margin-bottom: 20px;
+}
+.input-row {
+    .input-box {
+        display: inline-block;
+        margin: 10px;
+        .input-label {
+            display: block;
+        }
+        .form-input {
+            height: 23px;
+            border-radius: 5px;
+            border: 1px solid #9a9494;
+            width: 250px;
+        }
+    }
+}
