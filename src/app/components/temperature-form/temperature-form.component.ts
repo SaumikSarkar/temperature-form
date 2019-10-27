@@ -79,7 +79,70 @@ export class TemperatureFormComponent implements OnInit {
   }
 
   getTemperatureFormData() {
-    console.log(this.temperatureFormData);
+    let isValid: boolean = false;
+    isValid = this.checkValidation();
+    if (isValid) {
+      console.log(this.temperatureFormData);
+      alert('Please Check Console for Output');
+    }
+    else {
+      alert('The Validations are not met');
+    }
+  }
+
+  checkValidation(): boolean {
+    let validCheck: boolean = true;
+    let profileRegex: RegExp = /^[A-Za-z0-9]*$/;
+    this.temperatureFormData.melt.forEach((data: models.MeltData) => {
+      if (data.endTemperature > 100 || data.startTemperature < 30 || data.startTemperature > 99.99) {
+        validCheck = false;
+      }
+    });
+    this.temperatureFormData.preIncubation.forEach((data: models.PreIncubationData) => {
+      if (data.holdTimeSecond < 3 || data.holdTimeSecond > 18000 ||
+        data.temperature < 30 || data.temperature > 100) {
+          validCheck = false;
+      }
+    });
+    this.temperatureFormData.twoStepAmplification.forEach((data: models.TwoStepAmplificationData) => {
+      if (data.imageAcquisition == null || data.numberOfCycle < 1 || data.numberOfCycle > 100) {
+        validCheck = false;
+      }
+      data.wellsTwoStepAmplification.forEach((well: models.WellData) => {
+        if (well.holdTime1 < 3 || well.holdTime1 > 18000 ||
+          well.holdTime2 < 3 || well.holdTime2 > 18000 ||
+          well.setPoint1 < 30 || well.setPoint1 > 100 ||
+          well.setPoint2 < 30 || well.setPoint2 > 100) {
+            validCheck = false;
+        }
+      });
+    });
+    this.temperatureFormData.threeStepAmplification.forEach((data: models.ThreeStepAmplificationData) => {
+      if (data.imageAcquisition == null || data.numberOfCycle < 1 || data.numberOfCycle > 100) {
+        validCheck = false;
+      }
+      data.wellsThreeStepAmplification.forEach((well: models.WellData) => {
+        if (well.holdTime1 < 3 || well.holdTime1 > 18000 ||
+          well.holdTime2 < 3 || well.holdTime2 > 18000 ||
+          well.holdTime3 < 3 || well.holdTime3 > 18000 ||
+          well.setPoint1 < 30 || well.setPoint1 > 100 ||
+          well.setPoint2 < 30 || well.setPoint2 > 100 ||
+          well.setPoint3 < 30 || well.setPoint3 > 100) {
+            validCheck = false;
+        }
+      });
+    });
+    if (this.temperatureFormData.negativeDeviation < 0.5 ||
+      this.temperatureFormData.negativeDeviation > 100 ||
+      this.temperatureFormData.positiveDeviation < 0.5 ||
+      this.temperatureFormData.positiveDeviation > 100 ||
+      this.temperatureFormData.rampRate < 0.01 ||
+      this.temperatureFormData.rampRate > 100 ||
+      !this.temperatureFormData.testTypeId||
+      (profileRegex.test(this.temperatureFormData.profileName) == false)) {
+        validCheck = false;
+    }
+    return validCheck;
   }
 
   getFormTypeValues(): Array<IDetailFormValues> {
@@ -92,8 +155,8 @@ export class TemperatureFormComponent implements OnInit {
     return values;
   }
 
-  setTestTypes() : Array<IDropdownValues> {
-    let values : Array<IDropdownValues> = [
+  setTestTypes(): Array<IDropdownValues> {
+    let values: Array<IDropdownValues> = [
       { value: 'Test Type 1', id: 1 },
       { value: 'Test Type 2', id: 2 },
       { value: 'Test Type 3', id: 3 },

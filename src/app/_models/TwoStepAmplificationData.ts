@@ -12,7 +12,7 @@ export class TwoStepAmplificationData implements contracts.ITwoStepAmplification
     constructor(data? : contracts.ITwoStepAmplificationData) {
         this.numberOfCycle = data ? data.numberOfCycle : null;
         this.imageAcquisition = data ? data.imageAcquisition : null;
-        this.isMultiplex = data ? data.isMultiplex : null;
+        this.isMultiplex = data ? data.isMultiplex : false;
         this.order = data ? data.order : null;
         this.wellsTwoStepAmplification = data ? data.wellsTwoStepAmplification : new Array<models.WellData>();
     }
