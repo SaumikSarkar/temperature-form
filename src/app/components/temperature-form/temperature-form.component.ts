@@ -6,6 +6,11 @@ interface IDetailFormValues {
   id: string;
 }
 
+interface IDropdownValues {
+  value: string;
+  id: number;
+}
+
 @Component({
   selector: 'app-temperature-form',
   templateUrl: './temperature-form.component.html',
@@ -16,6 +21,7 @@ export class TemperatureFormComponent implements OnInit {
   //************* Variables ***************/
 
   showTemperaturePanel: boolean;
+  testTypes: Array<IDropdownValues>;
   temperatureDetailFormValues: Array<IDetailFormValues>;
   temperatureFormData: models.TemperatureData = new models.TemperatureData();
   formDisplayData: Array<models.FormSelectionData> = new Array<models.FormSelectionData>();
@@ -26,6 +32,7 @@ export class TemperatureFormComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.testTypes = this.setTestTypes();
     this.temperatureDetailFormValues = this.getFormTypeValues();
   }
 
@@ -81,6 +88,16 @@ export class TemperatureFormComponent implements OnInit {
       { value: '2-Step Amplification', id: 'twoStepAmplification' },
       { value: '3-Step Amplification', id: 'threeStepAmplification' },
       { value: 'Melt', id: 'melt' }
+    ];
+    return values;
+  }
+
+  setTestTypes() : Array<IDropdownValues> {
+    let values : Array<IDropdownValues> = [
+      { value: 'Test Type 1', id: 1 },
+      { value: 'Test Type 2', id: 2 },
+      { value: 'Test Type 3', id: 3 },
+      { value: 'Test Type 4', id: 4 }
     ];
     return values;
   }

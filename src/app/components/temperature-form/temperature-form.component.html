@@ -8,7 +8,10 @@
                 </div>
                 <div class="input-box">
                     <label class="input-label">Test Type</label>
-                    <input class="form-input" name="txt_temp_form_test_type" type="text" [(ngModel)]="temperatureFormData.testTypeId" />
+                    <select class="form-input" name="txt_temp_form_test_type" [(ngModel)]="temperatureFormData.testTypeId">
+                        <option [ngValue]="null" disabled="true">Select</option>
+                        <option *ngFor="let testType of testTypes" [ngValue]="testType.id">{{testType.value}}</option>
+                    </select>
                 </div>
             </div>
             <div class="input-row">
